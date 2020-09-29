@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/css/material.css">
+    <script src="/js/material.js"></script>
+    <title>Image Browser</title>
+</head>
+<style>
+    :root {
+        --img-width:150px;
+        --img-height:180px;
+    }
+    .image-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit,minmax(var(--img-width),var(--img-width)));
+        grid-gap: 5px;
+        justify-content: start;
+        align-items: start;
+    }
+    .image-grid .image-card {
+        width: var(--img-width);
+        height: var(--img-height);
+        border: 1px solid #333;
+        padding: 3px;
+        cursor: pointer;
+        position: relative;
+    }
+    .image-grid .image-card:hover  {
+        padding: 4px;
+        border-color: red;
+    }
+    .image-grid img,
+    .image-grid video {
+        width: 100%;
+        height: 80%;
+        /* opacity: 0.3; */
+    }
+    .image-grid p {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        padding: 0;
+        margin: 0;
+        text-align: center;
+    }
+    .image-grid .choosed {
+        border:1px solid red;
+        background: rgba(0,0,0,0.3);
+        background-image: url('/svg/checkmark.svg');
+        background-repeat: no-repeat;
+        z-index: 1;
+        background-position: center;
+        width: inherit;
+        height: inherit;
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+    
+</style>
+<body class="grey darken-2">
+    <!-- bar -->
+    <div class="navbar-fixed">
+        <nav>
+            <div class="nav-wrapper">
+                <div class="row">
+                    <div class="col s2">
+                        <button id="choose-button" onclick="choose_button_click()" class="btn teal">Choose</button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <!-- side -->
+    <div class="row">
+        <div class="col s2">
+            <ul class="collection">
+                <li id="image_tab_btn" class="collection-item" onclick="hide_tab('video')"><a href="#">Image</a></li>
+                <li id="video_tab_btn" class="collection-item" onclick="hide_tab('image')"><a href="#">Video</a></li>
+            </ul>
+        </div>
+
+        <!-- right -->
+        <div class="col s10">
+            <!-- img tab -->
+            <div id="image-tab">
+                <div class="image-grid">
+                    <%for(let file of files){%>
+                        <%if(file.ext.startsWith('image')){%>
+                            <div class="image-card">
+                                <div class="checkmarks"></div>
+                                <img onclick="chooseImage(this)" src="/upload/editor/<%=file.name%>" alt="img" class="responsive-img">
+                                <p><%=file.name%></p>
+                            </div>
+                        <%}%>
+                    <%}%>
+                </div>
+            </div>
+            <!-- video tab -->
+            <div id="video-tab">
+                <div class="image-grid">
+                    <%for(let file of files){%>
+                        <%if(file.ext.startsWith('video')){%>
+                            <div data-position="bottom" data-tooltip="<%=file.name%>" class="image-card tooltipped">
+                                <div class="checkmarks"></div>
+                                <video onclick="chooseImage(this)" src="/upload/editor/<%=file.name%>"></video>
+                                <p><%=file.name%></p>
+                            </div>
+                        <%}%>
+                    <%}%>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    
+    <script src="/js/image_browser.js"></script>
+</body>
+</html>

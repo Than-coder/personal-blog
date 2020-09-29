@@ -1,0 +1,24 @@
+<!-- home -->
+<%if(pagination_name == 'home'){%>
+<ul class="pagination center">
+  <%for(let page of pages){%>
+  <li class="waves-effect <%= page == current_page ? 'active':''%>">
+    <a href="/?page=<%=page%>"><%=page%></a>
+  </li>
+  <%}%>
+</ul>
+<%}%>
+
+<!-- category -->
+<%if(pagination_name == 'search_category'){%>
+<ul class="pagination center">
+  <%for(let page of pages){%>
+  <li class="waves-effect <%= page == current_page ? 'active':''%>">
+    <a
+      href="/post/category/?category_name=<%=current_category_name%>&page=<%=page%>"
+      ><%=page%></a
+    >
+  </li>
+  <%}%>
+</ul>
+<%}%>

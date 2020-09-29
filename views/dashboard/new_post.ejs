@@ -1,0 +1,71 @@
+
+<script src="/ckeditor/ckeditor.js"></script>
+
+<style>
+    #new {
+        width: 95%;
+        margin: 0 auto;
+        margin-top: 2rem;
+        
+    }
+    .new-content {
+        margin-top: 1rem;
+    }
+    #submit-button {
+        margin-bottom: 2rem;
+    }
+    @media(max-width:1000px) {
+        #new {
+            margin-left: 1rem;
+        }
+    }
+
+</style>
+
+<div id="new">
+    <button onclick="goback()" class="btn teal waves-effect">Go Back</button>
+    <div class="row new-content">
+        <!-- content -->
+        <div class="col s9">
+            <form action="">
+                <div class="input-field">
+                    <input type="hidden" id="post_id" value="">
+                    <input type="text" id="title" value="" placeholder="Title...">
+                    <label for="title">Title</label>
+                </div>
+                <!-- editor -->
+                <div id="editor"></div>
+            </form>
+        </div>
+        <!-- right side -->
+        <div class="col s3">
+            <!-- submit button -->
+            <div id="submit-button">
+                <button onclick="post_update()" class="btn teal">Public</button>
+                <button class="btn">Draft</button>
+            </div>
+
+            <!-- categories -->
+            <div class="input-field">
+                <select id="category_name">
+                    <%for(let cate of categories){%>
+                        <option <%= cate.name == 'unknown' ? 'selected':''%> value="<%=cate.name%>"><%=cate.name%></option>
+                    <%}%>
+                </select>
+                <label>Choose Categories</label>
+            </div>
+            <!-- post image upload -->
+            <!-- <div class="input-field">
+                <input onchange="image_input_change(this)" type="file" id="post-image-input">
+            </div> -->
+            <!-- post image -->
+            <!-- <div>
+                <img id="post-image" class="responsive-img" src="" alt="post image">
+            </div> -->
+        </div>
+    </div>
+
+</div>
+
+<script src="/js/new_post.js"></script>
+

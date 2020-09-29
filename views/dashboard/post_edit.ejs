@@ -1,0 +1,75 @@
+
+<script src="/ckeditor/ckeditor.js"></script>
+<script src="/js/jquery.js"></script>
+
+<style>
+    #edit {
+        width: 95%;
+        margin: 0 auto;
+        margin-top: 2rem;
+        
+    }
+    .edit-content {
+        margin-top: 1rem;
+    }
+    #submit-button {
+        margin-bottom: 2rem;
+    }
+    @media(max-width:1000px) {
+        #edit {
+            margin-left: 1rem;
+        }
+    }
+
+</style>
+
+<div id="edit">
+    <button onclick="goback()" class="btn teal waves-effect">Go Back</button>
+    <div class="row edit-content">
+        <!-- content -->
+        <div class="col s9">
+            <form action="">
+                <div class="input-field">
+                    <input type="hidden" id="post_id" value="<%=post.id%>">
+                    <input type="text" id="title" value="<%=post.title%>" placeholder="Title...">
+                    <label for="title">Title</label>
+                </div>
+                <!-- editor -->
+                <div id="editor"><%-post.body%></div>
+            </form>
+        </div>
+        <!-- right side -->
+        <div class="col s3">
+            <!-- submit button -->
+            <div id="submit-button">
+                <button onclick="post_update()" class="btn teal">Update</button>
+                <button class="btn teal">Draft</button>
+            </div>
+
+            <!-- categories -->
+            <div class="input-field">
+                <select id="category_name">
+                    <%for(let cate of categories){%>
+                        <option 
+                        <%= cate.name == post.category_name ? 'selected' :''%>
+                        value="<%=cate.name%>"><%=cate.name%></option>
+                    <%}%>
+                </select>
+                <label>Choose Categories</label>
+            </div>
+            <!-- post image upload -->
+            <div class="input-field">
+                <input onchange="image_input_change(this)" type="file" id="post-image-input">
+            </div>
+            <!-- post image -->
+            <div>
+                <img id="post-image" class="responsive-img" src="/upload/images/<%=post.title%>.jpg" alt="post image">
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="/js/post_edit.js"></script>
+

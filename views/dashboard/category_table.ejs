@@ -1,0 +1,119 @@
+<%- include('sidenav')%>
+
+<style>
+  #post-table {
+    margin-top: 1rem;
+  }
+  #category-edit,
+  #category-new {
+    /* display: block; */
+    top: 20%;
+    z-index: 1011;
+  }
+  #category-edit .overlay,
+  #category-new .overlay {
+    background: #333;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 1011;
+    display: block;
+    opacity: 0.5;
+  }
+</style>
+<div id="post-table">
+  <div class="container center">
+    <!-- post content -->
+    <div class="row">
+      <div class="col s3">
+        <button onclick="new_category()" class="btn">New Category</button>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <table class="striped center responsive-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Post Counts</th>
+          <th>Date</th>
+          <th>Edit</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%for(let cate of categories){%>
+        <tr>
+          <td><%=cate.name%></td>
+          <td><%=cate.post_counts%></td>
+          <td><%=new Date(cate.create_date).toLocaleString()%></td>
+          <td>
+            <button
+              data-id="<%=cate.id%>"
+              data-name="<%=cate.name%>"
+              onclick="category_name_edit(this)"
+              class="btn "
+            >
+              Edit
+            </button>
+          </td>
+          <td>
+            <button onclick="category_delete('<%=cate.id%>')" class="btn red">
+              Delete
+            </button>
+          </td>
+        </tr>
+        <%}%>
+      </tbody>
+    </table>
+    <ul class="pagination center">
+      <%for(let page of pages){%>
+      <li class="waves-effect <%= page == current_page ? 'active':''%>">
+        <a href="/dashboard/category-table/?page=<%=page%>"><%=page%></a>
+      </li>
+      <%}%>
+    </ul>
+  </div>
+  <!-- category edit modal -->
+  <div class="modal" id="category-edit">
+    <div class="overlay"></div>
+    <div class="modal-content">
+      <h4>Category Name Edit</h4>
+      <div class="input-field">
+        <input type="hidden" id="category-edit-id" />
+        <input
+          id="category-edit-input"
+          type="text"
+          placeholder="Category Name"
+        />
+        <label for="category-edit-input">Category Name</label>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button onclick="category_modal_submit()" class="btn">Submit</button>
+      <button onclick="category_modal_close()" class="btn red">Cancel</button>
+    </div>
+  </div>
+
+  <!-- category new modal -->
+  <div class="modal" id="category-new">
+    <div class="overlay"></div>
+    <div class="modal-content">
+      <h4>Category New</h4>
+      <div class="input-field">
+        <input
+          id="category-new-input"
+          autofocus
+          type="text"
+          placeholder="Category Name"
+        />
+        <label for="category-input">Category Name</label>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button onclick="category_new_modal_submit()" class="btn">Submit</button>
+      <button onclick="category_modal_close()" class="btn red">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<script src="/js/category_table.js"></script>

@@ -1,0 +1,46 @@
+#index-page {
+  width: 80%;
+  margin: auto;
+}
+.card-action a {
+  font-size: 16px;
+}
+.card-title .card-action {
+  padding: 3px;
+}
+.card-grid {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.card-grid-content {
+  flex: 9;
+}
+.card-grid .logo {
+  flex: 5;
+  margin-right: 8px;
+}
+.card-grid .logo img {
+  width: 100%;
+  max-height: 250px;
+}
+
+.collection-item a {
+  text-transform: capitalize;
+}
+#categories-item {
+  height: 900px;
+  overflow-y: auto;
+}
+
+@media (max-width: 600px) {
+  .card-grid {
+    flex-direction: column;
+  }
+  .card-grid-content {
+    font-size: 1.2rem;
+  }
+  #index-page {
+    width: 100%;
+  }
+}

@@ -1,0 +1,25 @@
+<style>
+        #dashboard-sidenav {
+            /* transform:translateX(0); */
+            width: 160px;
+        }
+        #dashboard {
+            width: 80%;
+            margin: 1rem auto;
+        }
+    </style>
+    <!-- sidenav -->
+    <ul id="dashboard-sidenav" class="sidenav sidenav-fixed">
+        <ul class="collection">
+            <li class="collection-item <%= typeof current_page_name == 'undefined' ? 'active':'' %>">
+                <a href="/dashboard">Dashboard</a>
+            </li>
+            <li><div class="devider"></div></li>
+            <li class="collection-item <%= typeof current_page_name != 'undefined' ? current_page_name == 'post_page'?'active':'' :''%>">
+                <a href="/dashboard/post-table">Post</a>
+            </li>
+            <li class="collection-item <%= typeof current_page_name != 'undefined' ? current_page_name == 'category_page'?'active':'' :''%>">
+                <a href="/dashboard/category-table">Category</a>
+            </li>
+        </ul>
+    </ul>

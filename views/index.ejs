@@ -1,0 +1,56 @@
+<link rel="stylesheet" href="/css/index.css" />
+
+<div id="index-page">
+  <!-- post && categories -->
+  <div class="row">
+    <div class="col l8 s12">
+      <!-- card -->
+      <div class="post-grid">
+        <%for (let post of posts) {%>
+        <div class="card">
+          <div class="card-title">
+            <div class="card-action center teal">
+              <a href="/post/?post_id=<%=post.id%>"><%=post.title%></a>
+            </div>
+          </div>
+          <div class="card-content">
+            <div class="card-grid">
+              <div class="logo">
+                <img src="<%=is_found_post_image(post.title)%>" alt="img" />
+              </div>
+              <div class="card-grid-content">
+                <strong
+                  ><%=new Date(post.create_date).toLocaleString()%></strong
+                >
+                <br />
+                <%if(post.body != null){%> <%= remove_tag(post.body)%>... <%}%>
+              </div>
+            </div>
+          </div>
+        </div>
+        <%}%>
+      </div>
+    </div>
+    <!-- categories -->
+    <div class="col l4 hide-on-med-and-down">
+      <ul class="collection with-header" id="categories-item">
+        <li class="collection-header"><h4>Categories</h4></li>
+        <%for(let cate of categories){%>
+        <li
+          class=" collection-item <%= typeof current_category_name != 'undefined' ? cate.name == current_category_name ? 'active':'':''%>"
+        >
+          <a
+            class="black-text"
+            href="/post/category/?category_name=<%=cate.name%>"
+          >
+            <%=cate.name%>
+            <span class="badge"><%=cate.post_counts%></span>
+          </a>
+        </li>
+        <%}%>
+      </ul>
+    </div>
+  </div>
+  <!-- pagination -->
+  <%- include('partials/pagination')%>
+</div>

@@ -1,0 +1,80 @@
+<style>
+  .menu img {
+    width: 30px;
+    height: 30px;
+    margin-top: 10px;
+  }
+</style>
+
+<div class="navbar-fixed">
+  <nav class="green darken-2">
+    <div class="nav-wrapper container">
+      <a href="#" class="menu sidenav-trigger" data-target="side-out">
+        <img src="/svg/menu.svg" alt="" />
+      </a>
+      <a href="/" class="brand-logo">Blog</a>
+      <ul class="right">
+        <!-- theme button -->
+        <li>
+          <button
+            class="btn hide-on-small-and-down theme_button"
+            onclick="theme_change(this)"
+            data-target="dark"
+          >
+            Light Theme
+          </button>
+        </li>
+        <li class="hide-on-small-and-down">
+          <a href="/dashboard">Dashboard</a>
+        </li>
+
+        <%if(!user){%>
+        <li><a href="/user/login">Login</a></li>
+        <%}else{%>
+        <li>
+          <a href="/user/profile/?id=<%=user.id%>"
+            ><%= user.is_admin ? 'Admin' : ''%></a
+          >
+        </li>
+        <li><a href="/user/logout">Logout</a></li>
+        <%}%>
+      </ul>
+    </div>
+  </nav>
+</div>
+
+<!-- side  nav -->
+<ul id="side-out" class="sidenav">
+  <ul class="collection with-header">
+    <!-- theme button -->
+    <li class="center">
+      <button
+        class="btn show-on-small-and-hide theme_button"
+        onclick="theme_change(this)"
+        data-target="dark"
+      >
+        Light Theme
+      </button>
+    </li>
+    <!-- header -->
+    <li class="collection-header center"><strong>Categories</strong></li>
+    <!-- list -->
+    <%if(typeof categories != 'undefined'){%> <%for(let cate of categories){%>
+    <li
+      class="collection-item <%= typeof current_category_name != 'undefined' ? cate.name == current_category_name ? 'active':'':''%>"
+    >
+      <a class="dark-text" href="/post/category/?category_name=<%=cate.name%>">
+        <%=cate.name%>
+        <span class="badge"><%=cate.post_counts%></span>
+      </a>
+    </li>
+    <%}%> <%}%>
+  </ul>
+</ul>
+
+<script>
+  const sidenav = document.querySelectorAll(".sidenav");
+  const modal = document.querySelectorAll(".modal");
+  M.Sidenav.init(sidenav);
+  M.Modal.init(modal);
+</script>

@@ -1,0 +1,77 @@
+<%- include('sidenav')%>
+<script src="/ckeditor/ckeditor.js"></script>
+<script src="/js/jquery.js"></script>
+
+<style>
+  #new {
+    /* width: 80%; */
+    margin-top: 2rem;
+    margin-left: 13rem;
+  }
+  .new-content {
+    margin-top: 1rem;
+  }
+  @media (max-width: 1000px) {
+    #new {
+      margin-left: 1rem;
+    }
+  }
+</style>
+
+<div id="new">
+  <button onclick="goback()" class="btn teal waves-effect">Go Back</button>
+  <div class="row new-content">
+    <!-- content -->
+    <div class="col s9">
+      <form action="">
+        <div class="input-field">
+          <input type="text" id="title" value="" placeholder="Title..." />
+          <label for="title">Title</label>
+        </div>
+        <!-- editor -->
+        <div id="editor"></div>
+      </form>
+    </div>
+    <!-- right side -->
+    <div class="col s3">
+      <!-- submit button -->
+      <div>
+        <button class="btn teal">Update</button>
+        <button class="btn teal">Draft</button>
+      </div>
+
+      <!-- categories -->
+      <div class="input-field">
+        <select id="categories-select">
+          <%for(let cate of categories){%>
+          <option value="<%=cate.name%>">
+            <%=cate.name%>
+          </option>
+          <%}%>
+        </select>
+        <label>Choose Categories</label>
+      </div>
+      <!-- post image upload -->
+      <div class="input-field">
+        <input type="file" id="post-image-input" />
+      </div>
+      <!-- post image -->
+      <div>
+        <img
+          class="responsive-img"
+          src="/upload/images/<%=post.title%>.jpg"
+          alt="post image"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function goback() {
+    window.history.back();
+  }
+  CKEDITOR.replace("editor");
+  // select init
+  M.AutoInit();
+</script>

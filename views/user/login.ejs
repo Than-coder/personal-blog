@@ -1,0 +1,38 @@
+<style>
+  #login {
+    margin-top: 4rem;
+  }
+</style>
+
+<div id="login" class="container">
+  <div class="row">
+    <div class="col s6 offset-s3">
+      <h4>User Login Form</h4>
+      <!-- login form -->
+      <%=typeof error_message != 'undefined' ? error_message : ''%>
+      <form action="/user/login" method="POST">
+        <div class="input-field">
+          <input
+            type="text"
+            placeholder="Username"
+            name="username"
+            id="username"
+            value="<%= typeof username != 'undefined' ? username : ''%>"
+          />
+          <label for="username">Username</label>
+        </div>
+        <div class="input-field">
+          <input
+            type="password"
+            placeholder="Password"
+            name="password"
+            id="password"
+          />
+          <label for="password">Password</label>
+        </div>
+
+        <input type="submit" value="Submit" class="btn" />
+      </form>
+    </div>
+  </div>
+</div>
