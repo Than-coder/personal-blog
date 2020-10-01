@@ -11,7 +11,7 @@
     <!-- post content -->
     <div class="row">
       <div class="col s2">
-        <a href="/dashboard/new-post" class="btn">New Post</a>
+        <button onclick="new_post()" class="btn">New Post</button>
       </div>
     </div>
     <div class="divider"></div>
@@ -21,6 +21,7 @@
           <th>Title</th>
           <th>Author</th>
           <th>Category</th>
+          <th>Public</th>
           <th>Date</th>
           <th>Edit</th>
           <th>Delete</th>
@@ -29,13 +30,14 @@
       <tbody>
         <%for(let post of posts){%>
         <tr>
-          <td><%=post.title%></td>
+          <td><a href="/post/?post_id=<%=post.id%>"><%=post.title%></a></td>
           <td><%=post.author%></td>
+          <td><%=post.is_public == 1 ? 'Public': 'Draft'%></td>
           <td><%=post.category_name%></td>
           <td><%=new Date(post.create_date).toLocaleString()%></td>
           <td>
             <a
-              href="/dashboard/post/edit/?post_id=<%=post.id%>"
+              href="/dashboard/post-table-edit/?post_id=<%=post.id%>"
               class="btn teal"
               >Edit</a
             >
@@ -60,10 +62,11 @@
 </div>
 
 <script>
+  // delete
   async function post_delete(id) {
     if (window.confirm("Are You Sure?") == false) return false;
     try {
-      let res = await axios.delete(`/dashboard/post/delete/?post_id=${id}`);
+      let res = await axios.delete(`/dashboard/post-delete-api/?post_id=${id}`);
 
       // success
       M.toast({ html: res.data.message });
@@ -71,6 +74,30 @@
       window.location.href = "/dashboard/post-table";
     } catch (error) {
       console.log(error.response);
+      M.toast({ html: error.response.statusText });
+      if (error.response.data.message) {
+        M.toast({ html: error.response.data.message });
+      }
+    }
+  }
+
+  // new post
+  async function new_post() {
+    try {
+      let res = await axios.post(
+        "/dashboard/post-new-api",
+        {},
+        {
+          headers: {
+            "Content-Type": "application/json"
+          }
+        }
+      );
+      // success
+      window.location.href = `/dashboard/post-table-edit/?post_id=${res.data.post_id}`;
+    } catch (error) {
+      console.log(error.response);
+      M.toast({ html: error.response.statusText });
       M.toast({ html: error.response.data.message });
     }
   }

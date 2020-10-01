@@ -20,10 +20,11 @@ async function home_page(req, res) {
   }
   try {
     posts = await post_model.find_by_page({
-      current_page_number: current_page
+      current_page_number: current_page,
+      query: ["is_public", 1]
     });
     categories = await category_modal.find({
-      limit: 100,
+      limit: 200,
       fields: ["id", "name", "post_counts"]
     });
     page_number = await post_model.find_by_pages_total();
@@ -92,7 +93,8 @@ async function search_category_page(req, res) {
     // posts
     posts = await post_model.find_by_category_page({
       category_name,
-      current_page_number: current_page
+      current_page_number: current_page,
+      query: ["is_public", 1]
     });
     // categories
     categories = await category_modal.find({

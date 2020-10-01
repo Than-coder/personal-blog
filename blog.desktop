@@ -1,0 +1,12 @@
+#!/usr/bin/env node
+
+[Desktop Entry]
+
+Name=Blog Nodejs
+Type=Application
+Path=/home/than/projects/nodejs/blog
+Icon=/home/than/projects/nodejs/blog/public/blog.png
+Exec=/home/than/.config/nvm/versions/node/v12.16.3/bin/node /home/than/projects/nodejs/blog/index.js
+
+
+Terminal=true

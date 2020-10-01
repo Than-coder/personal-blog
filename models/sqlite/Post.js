@@ -5,9 +5,10 @@ class Post extends DB {
     let sql = `CREATE TABLE IF NOT EXISTS ${this.table_name} (
       id INTEGER PRIMARY KEY,
       title TEXT,
-      author TEXT,
+      author TEXT DEFAULT 'unknown',
       body TEXT,
       category_name TEXT ,
+      is_public INTEGER DEFAULT 0,
       create_date DATETIME)`;
     return new Promise((resolve, reject) => {
       this.db.run(sql, err => {
@@ -25,17 +26,19 @@ class Post extends DB {
     current_page_number = 1,
     fields = [],
     sort = false,
-    limit = this.limit
+    limit = this.limit,
+    query = []
   } = {}) {
     return new Promise((resolve, reject) => {
       if (category_name == null) return reject("category name is not found!");
+      if (typeof query == "string") return reject("query is array required!");
       let start = current_page_number * limit - limit;
 
       let sql = `SELECT ${fields.length > 0 ? fields.join(",") : "*"} FROM ${
         this.table_name
-      } WHERE category_name='${category_name}' ORDER BY create_date ${
-        sort ? "ASC" : "DESC"
-      } LIMIT ${start},${limit}`;
+      } WHERE category_name='${category_name}' ${
+        query.length > 0 ? `AND ${query[0]}='${query[1]}'` : ""
+      } ORDER BY create_date ${sort ? "ASC" : "DESC"} LIMIT ${start},${limit}`;
 
       this.db.all(sql, (err, result) => {
         if (err) return reject(err);
@@ -74,22 +77,28 @@ class Post extends DB {
   add({
     title = null,
     author = "unknown",
+    body = "",
     category_name = "unknown",
+    is_public = 1,
     create_date = new Date()
   } = {}) {
     return new Promise((resolve, reject) => {
       if (title == null) return reject("title fields is empty!");
 
-      let sql = `INSERT INTO ${this.table_name} (title,author,category_name,create_date) VALUES (?,?,?,?)`;
+      let sql = `INSERT INTO ${this.table_name} 
+      (title,author,body,category_name,is_public,create_date) 
+      VALUES (?,?,?,?,?,?)`;
       this.db.run(
         sql,
         title,
         author,
+        body,
         category_name,
+        is_public,
         create_date,
-        (err, result) => {
+        err => {
           if (err) return reject(err);
-          resolve(result);
+          resolve(create_date);
         }
       );
     });

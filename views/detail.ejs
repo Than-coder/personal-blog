@@ -34,11 +34,15 @@
   <%if(post != null){%> <%if(user){%>
   <!-- check admin -->
   <%if(user.is_admin){%>
-  <a href="/dashboard/post/edit/?post_id=<%=post.id%>" class="btn teal">Edit</a>
+  <a href="/dashboard/post-table-edit/?post_id=<%=post.id%>" class="btn teal"
+    >Edit</a
+  >
   <%}else{%>
   <!-- normal user -->
   <%if(user.id == post.author){%>
-  <a href="/dashboard/post/edit/?post_id=<%=post.id%>" class="btn teal">Edit</a>
+  <a href="/dashboard/post-table-edit/?post_id=<%=post.id%>" class="btn teal"
+    >Edit</a
+  >
   <%}%> <%}%> <%}%> <%}%>
 
   <div>
@@ -52,7 +56,11 @@
       />
     </div>
     <div class="post-date">
-      <strong><%=parse_date(post.create_date)%></strong>
+      <div>
+        <strong>Created: </strong
+        ><i><%=new Date(post.create_date).toLocaleString()%></i>
+      </div>
+      <div><strong>Category: </strong><i><%=post.category_name%></i></div>
     </div>
     <!-- post body -->
     <input type="hidden" value="<%=post.id%>" id="post-id" />

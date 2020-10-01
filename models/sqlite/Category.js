@@ -20,30 +20,21 @@ class Category extends DB {
   ////////////////////////////////////
   // new methods
   ////////////////////////////////////
-  update_by_name({ name = null, post_counts = 0 } = {}) {
+  update_by_name({
+    name = null,
+    post_counts = 0,
+    create_date = new Date()
+  } = {}) {
     return new Promise((resolve, reject) => {
       if (name == null) return reject("category name not found!");
 
-      let sql = `UPDATE ${this.table_name} SET post_counts=? WHERE name=?`;
-      this.db.run(sql, post_counts, name, err => {
+      let sql = `UPDATE ${this.table_name} SET post_counts=?,create_date=? WHERE name=?`;
+      this.db.run(sql, post_counts, create_date, name, err => {
         if (err) return reject(err);
         resolve("updated");
       });
     });
   }
-
-  update_by_id({ id = null, name = "" } = {}) {
-    return new Promise((resolve, reject) => {
-      if (id == null) return reject("is not found!");
-
-      let sql = `UPDATE ${this.table_name} SET name=? WHERE id=?`;
-      this.db.run(sql, name, id, err => {
-        if (err) return reject(err);
-        resolve("updated");
-      });
-    });
-  }
-
   add({ name = null, post_counts = 0, create_date = new Date() } = {}) {
     return new Promise((resolve, reject) => {
       if (name == null) return reject("category_name is empty!");

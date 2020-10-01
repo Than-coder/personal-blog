@@ -86,11 +86,11 @@ function image_input_change(e) {
 }
 
 // post update
-function post_update() {
+function new_update() {
   const title = document.querySelector("#title").value;
   const body = editor.getData();
   const category_name = document.querySelector("#category_name").value;
-  const content = { title, author: "", body, category_name };
+  const content = { title, author: "unknown", body, category_name };
   // send server
   axios
     .post(`/dashboard/server-api-post-new`, content, {

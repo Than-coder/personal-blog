@@ -18,19 +18,22 @@ class DB {
   /////////////////////////
   // new methods
   /////////////////////////
-  find({ limit = this.limit, fields = [], sort = false } = {}) {
-    return new Promise((succ, rej) => {
+  find({ limit = this.limit, fields = [], sort = false, query = [] } = {}) {
+    return new Promise((resolve, reject) => {
+      if (typeof query == "string") return reject("query is array required!");
       let sql = `SELECT ${fields.length > 0 ? fields.join(",") : "*"} FROM ${
         this.table_name
+      } ${
+        query.length > 0 ? `WHERE ${query[0]}='${query[1]}'` : ""
       } ORDER BY create_date ${sort ? "ASC" : "DESC"} LIMIT ${limit}`;
       this.db.all(sql, (err, rows) => {
-        if (err) return rej(err);
-        succ(rows);
+        if (err) return reject(err);
+        resolve(rows);
       });
     });
   }
   find_all({ fields = [], query = [], sort = false } = {}) {
-    return new Promise((succ, rej) => {
+    return new Promise((resolve, reject) => {
       if (query.length == 0) return reject("query is empty!");
       if (typeof query == "string") return reject("query is array required!");
       // set query
@@ -40,8 +43,8 @@ class DB {
         this.table_name
       } WHERE ${query} ORDER BY create_date ${sort ? "ASC" : "DESC"}`;
       this.db.all(sql, (err, rows) => {
-        if (err) return rej(err);
-        succ(rows);
+        if (err) return reject(err);
+        resolve(rows);
       });
     });
   }
@@ -50,13 +53,17 @@ class DB {
     limit = this.limit,
     fields = [],
     current_page_number = 1,
-    sort = false
+    sort = false,
+    query = []
   } = {}) {
     return new Promise((resolve, reject) => {
+      if (typeof query == "string") return reject("query is array required!");
       let start = current_page_number * limit - limit;
 
       let sql = `SELECT ${fields.length > 0 ? fields.join(",") : "*"} FROM ${
         this.table_name
+      } ${
+        query.length > 0 ? `WHERE ${query[0]}='${query[1]}'` : ""
       } ORDER BY create_date ${sort ? "ASC" : "DESC"} LIMIT ${start},${limit}`;
 
       this.db.all(sql, (err, data) => {

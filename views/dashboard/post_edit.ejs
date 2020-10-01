@@ -42,8 +42,8 @@
         <div class="col s3">
             <!-- submit button -->
             <div id="submit-button">
-                <button onclick="post_update()" class="btn teal">Update</button>
-                <button class="btn teal">Draft</button>
+                <button onclick="post_update(1)" class="btn <%=post.is_public == 0 ? 'white black-text':''%>">Update</button>
+                <button onclick="post_update(0)" class="btn <%=post.is_public == 1 ? 'white black-text':''%>">Draft</button>
             </div>
 
             <!-- categories -->

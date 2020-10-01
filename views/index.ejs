@@ -19,10 +19,13 @@
                 <img src="<%=is_found_post_image(post.title)%>" alt="img" />
               </div>
               <div class="card-grid-content">
-                <strong
-                  ><%=new Date(post.create_date).toLocaleString()%></strong
-                >
-                <br />
+                <div>
+                  <strong>Created: </strong
+                  ><i><%=new Date(post.create_date).toLocaleString()%></i>
+                </div>
+                <div>
+                  <strong>Category: </strong><i><%=post.category_name%></i>
+                </div>
                 <%if(post.body != null){%> <%= remove_tag(post.body)%>... <%}%>
               </div>
             </div>
