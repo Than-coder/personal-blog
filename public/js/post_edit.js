@@ -85,6 +85,14 @@ function image_input_change(e) {
       });
   }
 }
+// set query
+let query = {};
+let search = window.location.search.replace("?", "").split("&");
+
+for (let q of search) {
+  let s = q.split("=");
+  query[s[0]] = s[1];
+}
 
 // post update
 function post_update(is_public = 1) {
@@ -108,7 +116,15 @@ function post_update(is_public = 1) {
       M.toast({ html: msg });
       // refresh
       setTimeout(() => {
-        window.location.href = "/dashboard/post-table";
+        if (query.go_back) {
+          if (query.go_back == "detail") {
+            window.location.href = `/post/?post_id=${id}`;
+          } else {
+            window.location.href = "/dashboard/post-table";
+          }
+        } else {
+          window.location.href = "/dashboard/post-table";
+        }
       }, 1000);
     })
     .catch(err => {

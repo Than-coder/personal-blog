@@ -26,7 +26,10 @@
                 <div>
                   <strong>Category: </strong><i><%=post.category_name%></i>
                 </div>
-                <%if(post.body != null){%> <%= remove_tag(post.body)%>... <%}%>
+                <div>
+                  <%if(post.body != null){%> <%= remove_tag(post.body)%>...
+                  <%}%>
+                </div>
               </div>
             </div>
           </div>
@@ -43,7 +46,7 @@
           class=" collection-item <%= typeof current_category_name != 'undefined' ? cate.name == current_category_name ? 'active':'':''%>"
         >
           <a
-            class="black-text"
+            class="green-text"
             href="/post/category/?category_name=<%=cate.name%>"
           >
             <%=cate.name%>
@@ -52,6 +55,8 @@
         </li>
         <%}%>
       </ul>
+      <!-- recent add post -->
+      <%- include('partials/recent_post')%>
     </div>
   </div>
   <!-- pagination -->

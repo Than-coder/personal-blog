@@ -29,7 +29,7 @@
   text-transform: capitalize;
 }
 #categories-item {
-  height: 900px;
+  height: 500px;
   overflow-y: auto;
 }
 
@@ -38,7 +38,7 @@
     flex-direction: column;
   }
   .card-grid-content {
-    font-size: 1.2rem;
+    font-size: 1rem;
   }
   #index-page {
     width: 100%;

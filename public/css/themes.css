@@ -1,3 +1,41 @@
 .dark-theme {
-	
+  background: rgb(39, 39, 39);
+  color: #fff;
+}
+
+.dark-theme .card-content {
+  background: rgb(77, 76, 76);
+}
+
+.dark-theme a {
+  color: #fff;
+}
+
+.dark-theme .collection li a {
+  color: rgb(48, 95, 248);
+}
+.dark-theme .collection li a:hover {
+  text-decoration: underline;
+}
+
+.dark-theme .collection li {
+  background: #333 !important;
+}
+.dark-theme .collection .active {
+  background: teal !important;
+}
+
+/* table */
+.dark-theme table {
+  background: rgb(105, 105, 105);
+}
+
+/* input */
+.dark-theme input {
+  color: #fff;
+}
+
+/* pagination */
+.dark-theme .pagination a {
+  color: #fff;
 }

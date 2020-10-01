@@ -34,13 +34,17 @@
   <%if(post != null){%> <%if(user){%>
   <!-- check admin -->
   <%if(user.is_admin){%>
-  <a href="/dashboard/post-table-edit/?post_id=<%=post.id%>" class="btn teal"
+  <a
+    href="/dashboard/post-table-edit/?post_id=<%=post.id%>&go_back=detail"
+    class="btn teal"
     >Edit</a
   >
   <%}else{%>
   <!-- normal user -->
   <%if(user.id == post.author){%>
-  <a href="/dashboard/post-table-edit/?post_id=<%=post.id%>" class="btn teal"
+  <a
+    href="/dashboard/post-table-edit/?post_id=<%=post.id%>&go_back=detail"
+    class="btn teal"
     >Edit</a
   >
   <%}%> <%}%> <%}%> <%}%>
@@ -72,6 +76,8 @@
     </div>
     <%}%>
   </div>
+  <!-- recent post -->
+  <%- include('partials/recent_post')%>
 </div>
 <!-- to top -->
 <div id="to-top" onclick="toTop()"><img src="/svg/arrow-up.svg" alt="" /></div>

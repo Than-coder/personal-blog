@@ -1,3 +1,12 @@
+// set query
+// let query = {};
+// let search = window.location.search.replace("?", "").split("&");
+
+// for (let q of search) {
+//   let s = q.split("=");
+//   query[s[0]] = s[1];
+// }
+
 // dom
 function init() {
   const id = document.querySelector("#post-id");

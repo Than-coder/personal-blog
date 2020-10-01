@@ -1,0 +1,24 @@
+<div class="">
+  <h4>Recent Post</h4>
+  <ul class="collection" id="post-item"></ul>
+</div>
+
+<script>
+  async function get_recent_post() {
+    try {
+      let res = await axios.get(
+        "/api/post/?limit=7&fields=id,title&is_public=1"
+      );
+      if (!res.data.posts) return M.toast({ html: "Post Object Not found!" });
+      let ul = "";
+      for (let post of res.data.posts) {
+        ul += `<li class=" collection-item"><a class="" href="/post/?post_id=${post.id}">${post.title}</a></li>`;
+      }
+      document.querySelector("#post-item").innerHTML = ul;
+    } catch (error) {
+      console.log(error.response);
+    }
+  }
+
+  window.onload = get_recent_post();
+</script>
