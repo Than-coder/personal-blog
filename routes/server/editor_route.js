@@ -24,6 +24,14 @@ Router.get(
   "/server-editor-image-browser",
   image_controller.editor_get_image_browser
 );
+// multiple image upload
+Router.post(
+  "/server-files-upload-api",
+  image_controller.editor_file_multi_upload_api
+);
+
+// file delete
+Router.delete("/file-delete-api", image_controller.editor_file_delete_api);
 
 // image upload
 Router.post("/image-upload", image_controller.add_image_post);

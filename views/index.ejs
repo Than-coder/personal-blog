@@ -19,9 +19,8 @@
                 <img src="<%=is_found_post_image(post.title)%>" alt="img" />
               </div>
               <div class="card-grid-content">
-                <div>
-                  <strong>Created: </strong
-                  ><i><%=new Date(post.create_date).toLocaleString()%></i>
+                <div class="post-date">
+                  <img src="/svg/calendar.svg" alt="Date"> <i><%=new Date(post.create_date).toLocaleString()%></i>
                 </div>
                 <div>
                   <strong>Category: </strong><i><%=post.category_name%></i>
@@ -46,7 +45,7 @@
           class=" collection-item <%= typeof current_category_name != 'undefined' ? cate.name == current_category_name ? 'active':'':''%>"
         >
           <a
-            class="green-text"
+            class="red-text"
             href="/post/category/?category_name=<%=cate.name%>"
           >
             <%=cate.name%>

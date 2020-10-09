@@ -31,7 +31,7 @@ function remove_tag(html) {
   // let reg = new RegExp()
   html = html.replace(/<.*?>/gim, "");
   html = html.replace(/\&nbsp;?|\&hellip;|&quot;|&#39;|&rdquo;|&ldquo;/gm, "");
-  html = html.substring(0, 400);
+  html = html.substring(0, 300);
   return html;
 }
 

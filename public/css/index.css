@@ -25,6 +25,12 @@
   max-height: 250px;
 }
 
+/* post-date img */
+.post-date img {
+  width: 15px;
+  height: 15px;
+}
+
 .collection-item a {
   text-transform: capitalize;
 }
